@@ -3,10 +3,12 @@ package com.ilikegap.app;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
+import android.preference.PreferenceManager;
 import im.delight.android.webview.AdvancedWebView;
 
 
@@ -20,11 +22,38 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener {
     private Utils utils;
     private String url = "https://www.ilikegap.com";
     private ProgressDialog progressBar;
-    
+    public boolean isFirstStart;
+    Context mcontext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //  Intro App Initialize SharedPreferences
+                SharedPreferences getSharedPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+
+                //  Create a new boolean and preference and set it to true
+                isFirstStart = getSharedPreferences.getBoolean("firstStart", true);
+
+                //  Check either activity or app is open very first time or not and do action
+                if (isFirstStart) {
+
+                    //  Launch application introduction screen
+                    Intent i = new Intent(MainActivity.this, IntroActivity.class);
+                    startActivity(i);
+                    SharedPreferences.Editor e = getSharedPreferences.edit();
+                    e.putBoolean("firstStart", false);
+                    e.apply();
+                }
+            }
+        });
+        t.start();
+
         this.utils = new Utils(this);
         progressBar = ProgressDialog.show(this, "Progress", "Loading Data...");
         
