@@ -21,7 +21,7 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener {
     private AdvancedWebView mWebView;
     private Utils utils;
     private String url = "https://www.ilikegap.com";
-    private ProgressDialog progressBar;
+    private ProgressDialog progressBar;//progress bar
     public boolean isFirstStart;
     Context mcontext;
 
@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener {
         t.start();
 
         this.utils = new Utils(this);
-        progressBar = ProgressDialog.show(this, "Progress", "Loading Data...");
+        progressBar = ProgressDialog.show(this, "Harap menunggu", "Mengambil Data...");//progress bar
         
         if (utils.isNetworkConnected()) {
             mWebView = findViewById(R.id.mWebView);
@@ -122,6 +122,7 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener {
     
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
+        progressBar.show();
     }
     
     @Override
