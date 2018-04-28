@@ -1,5 +1,6 @@
 package com.ilikegap.app;
 
+import android.support.v7.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,11 +13,12 @@ import android.preference.PreferenceManager;
 import im.delight.android.webview.AdvancedWebView;
 
 
+
 /**
  * Created by Inzimam Tariq on 18-Oct-17.
  */
 
-public class MainActivity extends Activity implements AdvancedWebView.Listener {
+public class MainActivity extends AppCompatActivity implements AdvancedWebView.Listener {
     
     private AdvancedWebView mWebView;
     private Utils utils;
@@ -29,6 +31,8 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Thread t = new Thread(new Runnable() {
             @Override
@@ -63,6 +67,7 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener {
             mWebView.loadUrl(url);
         } else {
             utils.showAlertDialoge();
+            //mWebView.loadUrl("file:///android_asset/sample.html");
         }
         
     }

@@ -6,6 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Inzimam on 18-Oct-17.
  */
@@ -32,8 +35,16 @@ public class Utils {
                     }
                 });
         // Create the AlertDialog object and return it
-        AlertDialog alertDialog = builder.create();
+        final AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
+        final Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            public void run() {
+                alertDialog.dismiss(); // when the task active then close the dialog
+                t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+            }
+        }, 3000);
 
     }
     public void showAlertDialoge(String title){
