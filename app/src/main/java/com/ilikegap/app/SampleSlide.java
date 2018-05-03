@@ -36,4 +36,6 @@ public class SampleSlide extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(layoutResId, container, false);
     }
+
+
 }
