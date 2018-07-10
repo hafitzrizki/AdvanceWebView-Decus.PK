@@ -10,6 +10,9 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
+import com.onesignal.OneSignal;
+
 import im.delight.android.webview.AdvancedWebView;
 
 
@@ -31,6 +34,12 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //OneSignal Notification Code
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
